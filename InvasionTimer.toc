@@ -1,0 +1,9 @@
+## Interface: 80100
+## Version: 1.0.0
+## Title: Invasion Timer
+## Notes: Provide datatext of invasion timetable
+## Author: Rhythm
+## DefaultState: enabled
+
+Locales\load_locales.xml
+InvasionTimer.lua
