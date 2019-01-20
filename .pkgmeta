@@ -5,4 +5,5 @@ externals:
     Libs/CallbackHandler-1.0: https://repos.wowace.com/wow/callbackhandler/trunk/CallbackHandler-1.0
 
 ignore:
+    - .travis.yml
     - README.md
