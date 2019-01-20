@@ -5,6 +5,7 @@
 ## Version: @project-version@
 ## X-ReleaseDate: @project-date-iso@
 ## X-License: GPL-3.0
+## X-Curse-Project-ID: 311898
 ## DefaultState: enabled
 
 #@no-lib-strip@
