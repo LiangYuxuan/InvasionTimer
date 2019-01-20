@@ -1,3 +1,6 @@
+Libs/*
+!Libs/LibDataBroker-1.1
+
 # macOS related
 .DS_Store
 .AppleDouble
