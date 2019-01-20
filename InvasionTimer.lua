@@ -25,24 +25,14 @@ local invIndex = {
     }
 }
 
+-- BfA Invasion - Drustvar
+-- LEG Invasion - Stormheim > Highmountain
 local invTime = {
     CN = {
         1546743600, -- 1/6/2019 11:00
         1546844400, -- 1/7/2019 15:00
     },
 }
-
-local region = GetCVar("portal")
-if not region or #region ~= 2 then
-    local regionID = GetCurrentRegion()
-    region = regionID and ({ "US", "KR", "EU", "TW", "CN" })[regionID]
-end
-if invTime[region] then
-    local i, v
-    for i, v in pairs(invTime[region]) do
-        invIndex[i].baseTime = v
-    end
-end
 
 local function GetCurrentInvasion(index)
     local inv = invIndex[index]
@@ -79,32 +69,47 @@ local function GetFutureInvasion(index, length)
     return tbl
 end
 
-local DataObject = LDB:NewDataObject("Invasion", {
-    type = "data source",
-    text = L["Invasion"],
-    OnEnter = function (frame)
-        local parent = frame:GetParent()
-        GameTooltip:Hide()
-        GameTooltip:SetOwner(parent, parent.anchor, parent.xOff, parent.yOff)
-        GameTooltip:ClearLines()
+local region = GetCVar("portal")
+if not region or #region ~= 2 then
+    local regionID = GetCurrentRegion()
+    region = regionID and ({ "US", "KR", "EU", "TW", "CN" })[regionID]
+end
+if invTime[region] then
+    local i, v
+    for i, v in pairs(invTime[region]) do
+        invIndex[i].baseTime = v
+    end
+    local DataObject = LDB:NewDataObject("Invasion", {
+        type = "data source",
+        text = L["Invasion"],
+        OnEnter = function (frame)
+            local parent = frame:GetParent()
+            GameTooltip:Hide()
+            GameTooltip:SetOwner(parent, parent.anchor, parent.xOff, parent.yOff)
+            GameTooltip:ClearLines()
 
-        for index, value in ipairs(invIndex) do
-            GameTooltip:AddLine(value.title)
-            local timeLeft, zoneName = GetCurrentInvasion(index)
-            if timeLeft then
-                timeLeft = timeLeft / 60
-                GameTooltip:AddDoubleLine(L["Current Invasion"] .. zoneName, format("%dh %.2dm", timeLeft / 60, timeLeft % 60), 1, 1, 1, 0, 1, 0)
+            for index, value in ipairs(invIndex) do
+                GameTooltip:AddLine(value.title)
+                local timeLeft, zoneName = GetCurrentInvasion(index)
+                if timeLeft then
+                    timeLeft = timeLeft / 60
+                    GameTooltip:AddDoubleLine(L["Current Invasion"] .. zoneName, format("%dh %.2dm", timeLeft / 60, timeLeft % 60), 1, 1, 1, 0, 1, 0)
+                end
+                local futureTable, i = GetFutureInvasion(index, 2)
+                for i = 1, #futureTable do
+                    local nextTime, zoneName = unpack(futureTable[i])
+                    GameTooltip:AddDoubleLine(L["Next Invasion"] .. zoneName, date("%m/%d %H:%M", nextTime), 1, 1, 1, 1, 1, 1)
+                end
             end
-            local futureTable, i = GetFutureInvasion(index, 2)
-            for i = 1, #futureTable do
-                local nextTime, zoneName = unpack(futureTable[i])
-                GameTooltip:AddDoubleLine(L["Next Invasion"] .. zoneName, date("%m/%d %H:%M", nextTime), 1, 1, 1, 1, 1, 1)
-            end
-        end
 
-        GameTooltip:Show()
-    end,
-    OnLeave = function (frame)
-        GameTooltip:Hide()
-    end,
-})
+            GameTooltip:Show()
+        end,
+        OnLeave = function (frame)
+            GameTooltip:Hide()
+        end,
+    })
+else
+    DEFAULT_CHAT_FRAME:AddMessage("\124cFFFF0000Invasion Timer\124r: Missing invasion info on your realm.")
+    DEFAULT_CHAT_FRAME:AddMessage("Region: " .. region .. ", RegionID: " .. GetCurrentRegion())
+    DEFAULT_CHAT_FRAME:AddMessage("If you can help, please go to: https://github.com/LiangYuxuan/InvasionTimer")
+end
