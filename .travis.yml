@@ -8,7 +8,7 @@ addons:
 install: luarocks install --local luacheck
 script:
   - /home/travis/.luarocks/bin/luacheck .
-  # - curl -s https://raw.githubusercontent.com/BigWigsMods/packager/master/release.sh | bash
+  - curl -s https://raw.githubusercontent.com/BigWigsMods/packager/master/release.sh | bash
 
 notifications:
   email:
