@@ -34,6 +34,8 @@ local invIndex = {
         timeTable = {4, 3, 2, 1, 4, 2, 3, 1, 2, 4, 1, 3},
         -- Stormheim Beginning then Highmountain
         baseTime = {
+            US = 1547614800, -- 01/15/2019 21:00 UTC-8
+            EU = 1547586000, -- 01/15/2019 21:00 UTC+0
             CN = 1546844400, -- 01/07/2019 15:00 UTC+8
         },
     }
