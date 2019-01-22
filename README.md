@@ -7,9 +7,9 @@ World of Warcraft addon that provides a datatext showing current and following i
 ### Realm Supported
 
 * CN
+* US
+* EU
 
 ### Help Wanted
 
-If invasion infomation is not available on your realm, this datatext will not be registered and a help-wanted message will be shown in the chat frame.
-
-Currently I only have infomation on CN realm, so if you can help, please [open a ticket](https://github.com/LiangYuxuan/InvasionTimer/issues) about the last time you meet Faction Assault and Legion Invasion, where they took place and your timezone.
+If you can provide Faction Assaults or Legion Invasions time on different realm or can accurate it, please [open a ticket](https://github.com/LiangYuxuan/InvasionTimer/issues) about the last time you meet Faction Assault or Legion Invasion and where it took place.
