@@ -31,7 +31,7 @@ local invIndex = {
         interval = 66600,
         duration = 21600,
         maps = {630, 641, 650, 634},
-        timeTable = {4, 3, 2, 1, 4, 2, 3, 1, 2, 4, 1, 3},
+        -- timeTable = {4, 3, 2, 1, 4, 2, 3, 1, 2, 4, 1, 3},
         -- Stormheim Beginning then Highmountain
         baseTime = {
             US = 1547614800, -- 01/15/2019 21:00 UTC-8
@@ -41,6 +41,36 @@ local invIndex = {
     }
 }
 
+-- Fallback
+local mapAreaPoiIDs = {
+    [630] = 5175,
+    [641] = 5210,
+    [650] = 5177,
+    [634] = 5178,
+    [862] = 5973,
+    [863] = 5969,
+    [864] = 5970,
+    [896] = 5964,
+    [942] = 5966,
+    [895] = 5896,
+}
+
+local function GetInvasionInfo(mapID)
+    local areaPoiID = mapAreaPoiIDs[mapID]
+    local seconds = C_AreaPoiInfo.GetAreaPOISecondsLeft(areaPoiID)
+    local mapInfo = C_Map.GetMapInfo(mapID)
+    return seconds, mapInfo.name
+end
+
+local function CheckInvasion(index)
+    for _, mapID in pairs(invIndex[index].maps) do
+        local timeLeft, name = GetInvasionInfo(mapID)
+        if timeLeft and timeLeft > 0 then
+            return timeLeft, name
+        end
+    end
+end
+
 local function GetCurrentInvasion(index)
     local inv = invIndex[index]
     local currentTime = time()
@@ -49,61 +79,50 @@ local function GetCurrentInvasion(index)
     local interval = inv.interval
     local elapsed = mod(currentTime - baseTime, interval)
     if elapsed < duration then
-        local count = #inv.timeTable
-        local round = mod(floor((currentTime - baseTime) / interval) + 1, count)
-        if round == 0 then round = count end
-        return duration - elapsed, C_Map.GetMapInfo(inv.maps[inv.timeTable[round]]).name
+        if inv.timeTable then
+            local count = #inv.timeTable
+            local round = mod(floor((currentTime - baseTime) / interval) + 1, count)
+            if round == 0 then round = count end
+            return duration - elapsed, C_Map.GetMapInfo(inv.maps[inv.timeTable[round]]).name
+        else
+            -- unknown order
+            local timeLeft, name = CheckInvasion(index)
+            if timeLeft then
+                -- found POI on map
+                return timeLeft, name
+            else
+                -- fallback
+                return duration - elapsed, UNKNOWN
+            end
+        end
     end
 end
 
 local function GetFutureInvasion(index, length)
     if not length then length = 1 end
-    local tbl, i = {}
+    local tbl = {}
     local inv = invIndex[index]
     local currentTime = time()
     local baseTime = inv.baseTime[region]
     local interval = inv.interval
-    local count = #inv.timeTable
     local elapsed = mod(currentTime - baseTime, interval)
     local nextTime = interval - elapsed + currentTime
-    local round = mod(floor((nextTime - baseTime) / interval) + 1, count)
-    for i = 1, length do
-        if round == 0 then round = count end
-        table.insert(tbl, {nextTime, C_Map.GetMapInfo(inv.maps[inv.timeTable[round]]).name})
-        nextTime = nextTime + interval
-        round = mod(round + 1, count)
+    if not inv.timeTable then
+        for _ = 1, length do
+            tinsert(tbl, {nextTime, ''})
+            nextTime = nextTime + interval
+        end
+    else
+        local count = #inv.timeTable
+        local round = mod(floor((nextTime - baseTime) / interval) + 1, count)
+        for _ = 1, length do
+            if round == 0 then round = count end
+            tinsert(tbl, {nextTime, C_Map.GetMapInfo(inv.maps[inv.timeTable[round]]).name})
+            nextTime = nextTime + interval
+            round = mod(round + 1, count)
+        end
     end
     return tbl
-end
-
--- Fallback
-local mapAreaPoiIDs = {
-	[630] = 5175,
-	[641] = 5210,
-	[650] = 5177,
-	[634] = 5178,
-	[862] = 5973,
-	[863] = 5969,
-	[864] = 5970,
-	[896] = 5964,
-	[942] = 5966,
-	[895] = 5896,
-}
-
-local function GetInvasionInfo(mapID)
-	local areaPoiID = mapAreaPoiIDs[mapID]
-	local seconds = C_AreaPoiInfo.GetAreaPOISecondsLeft(areaPoiID)
-	local mapInfo = C_Map.GetMapInfo(mapID)
-	return seconds, mapInfo.name
-end
-
-local function CheckInvasion(index)
-	for _, mapID in pairs(invIndex[index].maps) do
-		local timeLeft, name = GetInvasionInfo(mapID)
-		if timeLeft and timeLeft > 0 then
-			return timeLeft, name
-		end
-	end
 end
 
 local DataObject = LDB:NewDataObject("Invasion", {
