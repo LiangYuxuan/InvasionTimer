@@ -2,4 +2,5 @@
 	<Include file="enUS.lua"/>
 	<Include file="zhCN.lua"/>
 	<Include file="zhTW.lua"/>
+	<Include file="ruRU.lua"/>
 </Ui>
