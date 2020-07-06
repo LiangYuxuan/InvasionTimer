@@ -129,9 +129,8 @@ local DataObject = LDB:NewDataObject("Invasion", {
     type = "data source",
     text = L["Invasion"],
     OnEnter = function (frame)
-        local parent = frame:GetParent()
         GameTooltip:Hide()
-        GameTooltip:SetOwner(parent, parent.anchor, parent.xOff, parent.yOff)
+        GameTooltip:SetOwner(frame, 'ANCHOR_CURSOR')
         GameTooltip:ClearLines()
 
         for index, value in ipairs(invIndex) do
