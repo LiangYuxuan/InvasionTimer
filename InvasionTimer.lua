@@ -179,3 +179,14 @@ LDB:NewDataObject("Invasion", {
         GameTooltip:Hide()
     end,
 })
+
+LDB:NewDataObject("Invasion", {
+    type = "data source",
+    text = L["Invasion (DD/MM)"],
+    OnEnter = function (frame)
+        OnEnter(frame, "%d/%m %H:%M")
+    end,
+    OnLeave = function (frame)
+        GameTooltip:Hide()
+    end,
+})

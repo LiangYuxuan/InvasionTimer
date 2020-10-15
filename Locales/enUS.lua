@@ -4,6 +4,7 @@ if not L then return end
 -- enUS
 L["Invasion"] = "Invasion Timetable"
 L["Invasion (12 Hour)"] = "Invasion Timetable (12 Hour)"
+L["Invasion (DD/MM)"] = "Invasion Timetable (DD/MM)"
 L["BfA Invasion"] = "Faction Assault"
 L["Legion Invasion"] = "Legion Invasion"
 L["Current Invasion"] = "Current: "
