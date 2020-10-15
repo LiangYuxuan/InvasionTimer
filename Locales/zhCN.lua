@@ -3,6 +3,7 @@ local L = AceLocale:NewLocale("InvasionTimer", "zhCN")
 if not L then return end
 -- zhCN
 L["Invasion"] = "突袭时间"
+L["Invasion (12 Hour)"] = "突袭时间（12小时）"
 L["BfA Invasion"] = "阵营突袭"
 L["Legion Invasion"] = "军团突袭"
 L["Current Invasion"] = "当前: "

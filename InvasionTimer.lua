@@ -125,40 +125,55 @@ local function GetFutureInvasion(index, length)
     return tbl
 end
 
-local DataObject = LDB:NewDataObject("Invasion", {
+local function OnEnter(frame, dateFormat)
+    GameTooltip:Hide()
+    GameTooltip:SetOwner(frame, 'ANCHOR_CURSOR')
+    GameTooltip:ClearLines()
+
+    for index, value in ipairs(invIndex) do
+        GameTooltip:AddLine(value.title)
+        if value.baseTime[region] then
+            -- baseTime provided
+            local timeLeft, zoneName = GetCurrentInvasion(index)
+            if timeLeft then
+                timeLeft = timeLeft / 60
+                GameTooltip:AddDoubleLine(L["Current Invasion"] .. zoneName, format("%dh %.2dm", timeLeft / 60, timeLeft % 60), 1, 1, 1, 0, 1, 0)
+            end
+            local futureTable = GetFutureInvasion(index, 2)
+            for i = 1, #futureTable do
+                local nextTime, zoneName = unpack(futureTable[i])
+                GameTooltip:AddDoubleLine(L["Next Invasion"] .. zoneName, date(dateFormat, nextTime), 1, 1, 1, 1, 1, 1)
+            end
+        else
+            local timeLeft, zoneName = CheckInvasion(index)
+            if timeLeft then
+                timeLeft = timeLeft / 60
+                GameTooltip:AddDoubleLine(L["Current Invasion"] .. zoneName, format("%dh %.2dm", timeLeft / 60, timeLeft % 60), 1, 1, 1, 0, 1, 0)
+            else
+                GameTooltip:AddLine("Missing invasion info on your realm.")
+            end
+        end
+    end
+
+    GameTooltip:Show()
+end
+
+LDB:NewDataObject("Invasion", {
     type = "data source",
     text = L["Invasion"],
     OnEnter = function (frame)
+        OnEnter(frame, "%m/%d %H:%M")
+    end,
+    OnLeave = function (frame)
         GameTooltip:Hide()
-        GameTooltip:SetOwner(frame, 'ANCHOR_CURSOR')
-        GameTooltip:ClearLines()
+    end,
+})
 
-        for index, value in ipairs(invIndex) do
-            GameTooltip:AddLine(value.title)
-            if value.baseTime[region] then
-                -- baseTime provided
-                local timeLeft, zoneName = GetCurrentInvasion(index)
-                if timeLeft then
-                    timeLeft = timeLeft / 60
-                    GameTooltip:AddDoubleLine(L["Current Invasion"] .. zoneName, format("%dh %.2dm", timeLeft / 60, timeLeft % 60), 1, 1, 1, 0, 1, 0)
-                end
-                local futureTable, i = GetFutureInvasion(index, 2)
-                for i = 1, #futureTable do
-                    local nextTime, zoneName = unpack(futureTable[i])
-                    GameTooltip:AddDoubleLine(L["Next Invasion"] .. zoneName, date("%m/%d %H:%M", nextTime), 1, 1, 1, 1, 1, 1)
-                end
-            else
-                local timeLeft, zoneName = CheckInvasion(index)
-                if timeLeft then
-                    timeLeft = timeLeft / 60
-                    GameTooltip:AddDoubleLine(L["Current Invasion"] .. zoneName, format("%dh %.2dm", timeLeft / 60, timeLeft % 60), 1, 1, 1, 0, 1, 0)
-                else
-                    GameTooltip:AddLine("Missing invasion info on your realm.")
-                end
-            end
-        end
-
-        GameTooltip:Show()
+LDB:NewDataObject("Invasion", {
+    type = "data source",
+    text = L["Invasion (12 Hour)"],
+    OnEnter = function (frame)
+        OnEnter(frame, "%m/%d %I:%M %p")
     end,
     OnLeave = function (frame)
         GameTooltip:Hide()
