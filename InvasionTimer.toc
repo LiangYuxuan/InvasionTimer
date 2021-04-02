@@ -6,7 +6,8 @@
 ## X-ReleaseDate: @project-date-iso@
 ## X-License: GPL-3.0
 ## X-Curse-Project-ID: 311898
-## DefaultState: enabled
+## X-WoWI-ID: 25933
+## X-Wago-ID: q96dAXKO
 
 #@no-lib-strip@
 Libs\LibStub\LibStub.lua
