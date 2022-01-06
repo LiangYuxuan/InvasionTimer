@@ -164,7 +164,7 @@ LDB:NewDataObject("Invasion", {
     OnEnter = function (frame)
         OnEnter(frame, "%m/%d %H:%M")
     end,
-    OnLeave = function (frame)
+    OnLeave = function ()
         GameTooltip:Hide()
     end,
 })
@@ -175,7 +175,7 @@ LDB:NewDataObject("Invasion", {
     OnEnter = function (frame)
         OnEnter(frame, "%m/%d %I:%M %p")
     end,
-    OnLeave = function (frame)
+    OnLeave = function ()
         GameTooltip:Hide()
     end,
 })
@@ -186,7 +186,7 @@ LDB:NewDataObject("Invasion", {
     OnEnter = function (frame)
         OnEnter(frame, "%d/%m %H:%M")
     end,
-    OnLeave = function (frame)
+    OnLeave = function ()
         GameTooltip:Hide()
     end,
 })
