@@ -1,4 +1,4 @@
-## Interface: 90207
+## Interface: 100000
 ## Title: Invasion Timer
 ## Notes: Provide datatext of invasion timetable
 ## Author: @project-author@
