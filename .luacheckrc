@@ -46297,6 +46297,7 @@ read_globals = {
 	"ZoneText_OnLoad",
 	"_",
 	"animOffset",
+	"assertsafe",
 	"authType",
 	"class",
 	"clubInfo",
