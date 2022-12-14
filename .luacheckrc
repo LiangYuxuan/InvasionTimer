@@ -48457,7 +48457,6 @@ read_globals = {
 	"info",
 	"instanceOf",
 	"ipairs_reverse",
-	"isActivitySet",
 	"isSpecialBrawl",
 	"itemFrame",
 	"itemLink",
