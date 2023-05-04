@@ -1,8 +1,9 @@
-## Interface: 100007
+## Interface: 100100
 ## Title: Invasion Timer
 ## Notes: Provide datatext of invasion timetable
 ## Author: @project-author@
 ## Version: @project-version@
+## IconTexture: 369214
 ## X-ReleaseDate: @project-date-iso@
 ## X-License: GPL-3.0
 ## X-Curse-Project-ID: 311898
