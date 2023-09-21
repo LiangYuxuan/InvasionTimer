@@ -44988,6 +44988,7 @@ read_globals = {
 	"LocalizePost",
 	"LocationText_OnEnter",
 	"LocationText_OnLeave",
+	"LocationText_OnMouseUp",
 	"LockMultiCastActionBar",
 	"LookingForClubDropdownInitialize",
 	"LookingForDropdownMixin",
