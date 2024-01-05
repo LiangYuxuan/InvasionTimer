@@ -5,6 +5,4 @@ externals:
     Libs/CallbackHandler-1.0: https://repos.curseforge.com/wow/callbackhandler/trunk/CallbackHandler-1.0
 
 ignore:
-    - .luacheckrc
-    - .travis.yml
     - README.md
