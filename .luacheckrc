@@ -34998,6 +34998,7 @@ read_globals = {
 	"Enum.GameModeFeatureSetting.Macros",
 	"Enum.GameModeFeatureSetting.MapPlunderstormCircle",
 	"Enum.GameModeFeatureSetting.MaxNameplateDistance",
+	"Enum.GameModeFeatureSetting.MaxUnitNameDistance",
 	"Enum.GameModeFeatureSetting.MaximizeWorldMap",
 	"Enum.GameModeFeatureSetting.MicroBarScale",
 	"Enum.GameModeFeatureSetting.PerksProgramActivityTracking",
