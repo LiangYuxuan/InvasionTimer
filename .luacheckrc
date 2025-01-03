@@ -10,6 +10,8 @@ ignore = {
 	-- "113/NUM_LE_.*", -- Accessing an undefined (Lua ENUM type) global variable
 	"122/StaticPopupDialogs", -- Setting a read-only field of a global variable "StaticPopupDialogs"
 	-- "211", -- Unused local variable
+	"211/IT", -- Unused local variable "IT"
+	"211/L", -- Unused local variable "L"
 	-- "212", -- Unused argument
 	"212/self", -- Unused argument "self"
 	-- "213", -- Unused loop variable
@@ -19,6 +21,9 @@ ignore = {
 	"42.", -- Shadowing a local variable, an argument, a loop variable.
 	"43.", -- Shadowing an upvalue, an upvalue argument, an upvalue loop variable.
 	-- "542", -- An empty if branch
+}
+globals = {
+	"InvasionTimerDB",
 }
 read_globals = {
 	-- Third Party AddOns / Libs

@@ -1,8 +1,9 @@
-## Interface: 110005, 110007
+## Interface: 110007
 ## Title: Invasion Timer
-## Notes: Provide datatext of invasion timetable
+## Notes: Data broker that provides timetable of time events (including invasions).
 ## Author: @project-author@
 ## Version: @project-version@
+## SavedVariables: InvasionTimerDB
 ## IconTexture: 369214
 ## X-ReleaseDate: @project-date-iso@
 ## X-License: GPL-3.0
@@ -16,5 +17,6 @@ Libs\CallbackHandler-1.0\CallbackHandler-1.0.xml
 Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
 #@end-no-lib-strip@
 
-Locales\load_locales.xml
-Legacy.lua
+Init.lua
+Locales.lua
+Core.lua
