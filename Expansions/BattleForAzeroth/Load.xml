@@ -1,3 +1,4 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file='Warfront.lua'/>
 	<Script file='Assault.lua'/>
 </Ui>
