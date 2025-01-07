@@ -6,6 +6,12 @@ IT.Core = Core
 
 local LDB = LibStub('LibDataBroker-1.1')
 
+-- Lua functions
+local date, floor, format, ipairs, tinsert, unpack = date, floor, format, ipairs, tinsert, unpack
+
+-- WoW API / Variables
+local GetServerTime = GetServerTime
+
 local region = GetCVar('portal')
 if not region or #region ~= 2 then
     local regionID = GetCurrentRegion()
@@ -19,5 +25,165 @@ else
     region = 'US'
 end
 
+---@class TimeEventBaseTime
+---@field US integer
+---@field EU integer
+---@field CN integer
+
+---@class TimeEventEntity
+---@field type "timeEvent"
+---@field key string
+---@field title string
+---@field interval integer
+---@field duration integer
+---@field baseTime TimeEventBaseTime
+---@field rotation integer[]?
+---@field getCurrentName nil | fun(): string
+---@field getRotationName nil | fun(rotationID: integer): string
+
+---@class CustomEntity
+---@field type "custom"
+---@field key string
+---@field title string
+---@field func fun(tooltip: GameTooltip)
+
+---@alias DisplayEntity TimeEventEntity | CustomEntity
+
+---@type DisplayEntity[]
+local displayEntities = {}
+
+---@param futureLength number
+---@param entity TimeEventEntity
+local function GetSequence(futureLength, entity)
+    local baseTime = entity.baseTime[region]
+    local interval = entity.interval
+    local duration = entity.duration
+    local rotation = entity.rotation
+
+    local result = {}
+
+    local currentTime = GetServerTime()
+    local elapsed = (currentTime - baseTime) % interval
+    local currentIndex
+    if rotation then
+        local count = #rotation
+        local round = (floor((currentTime - baseTime) / interval) + 1) % count
+        if round == 0 then round = count end
+
+        currentIndex = round
+    end
+
+    if elapsed < duration then
+        result[0] = { duration - elapsed, rotation and currentIndex and rotation[currentIndex] }
+    end
+
+    local nextTime = interval - elapsed + GetServerTime()
+    for i = 1, futureLength do
+        if currentIndex then
+            currentIndex = (currentIndex + 1) % #rotation
+            if currentIndex == 0 then currentIndex = #rotation end
+        end
+
+        result[i] = { nextTime, rotation and currentIndex and rotation[currentIndex] }
+        nextTime = nextTime + interval
+    end
+
+    return result
+end
+
+---@param entity DisplayEntity
+function Core:RegisterEntity(entity)
+    tinsert(displayEntities, entity)
+end
+
+function Core:GetAllEntries()
+    return displayEntities
+end
+
+function Core:GetDataFormat()
+    if IT.db.settings.use12HourClock then
+        if IT.db.settings.useDDMMFormat then
+            return '%d/%m %I:%M %p'
+        else
+            return '%m/%d %I:%M %p'
+        end
+    else
+        if IT.db.settings.useDDMMFormat then
+            return '%d/%m %H:%M'
+        else
+            return '%m/%d %H:%M'
+        end
+    end
+end
+
+function Core:OnEnter(tooltip)
+    local dataFormat = self:GetDataFormat()
+
+    for _, entity in ipairs(displayEntities) do
+        if IT.db.settings.displayEntity[entity.key] then
+            tooltip:AddLine(entity.title)
+
+            if entity.type == 'timeEvent' then
+                local sequenceLength = 3
+                local sequence = GetSequence(sequenceLength, entity)
+                if sequence[0] then
+                    local secondsLeft, rotationID = unpack(sequence[0])
+                    local minutesLeft = secondsLeft / 60
+
+                    if rotationID and entity.getRotationName then
+                        local rotationName = entity.getRotationName(rotationID)
+                        tooltip:AddDoubleLine(
+                            L["Current"] .. ": " .. rotationName,
+                            format("%dh %.2dm", minutesLeft / 60, minutesLeft % 60),
+                            1, 1, 1, 0, 1, 0
+                        )
+                    elseif entity.getCurrentName then
+                        local currentName = entity.getCurrentName()
+                        tooltip:AddDoubleLine(
+                            L["Current"] .. ": " .. currentName,
+                            format("%dh %.2dm", minutesLeft / 60, minutesLeft % 60),
+                            1, 1, 1, 0, 1, 0
+                        )
+                    else
+                        tooltip:AddDoubleLine(
+                            L["Current"],
+                            format("%dh %.2dm", minutesLeft / 60, minutesLeft % 60),
+                            1, 1, 1, 0, 1, 0
+                        )
+                    end
+                end
+
+                for i = 1, sequenceLength do
+                    local nextTime, rotationID = unpack(sequence[i])
+
+                    if rotationID and entity.getRotationName then
+                        local rotationName = entity.getRotationName(rotationID)
+                        tooltip:AddDoubleLine(
+                            L["Next"] .. ": " .. rotationName,
+                            date(dataFormat, nextTime),
+                            1, 1, 1, 1, 1, 1
+                        )
+                    else
+                        tooltip:AddDoubleLine(
+                            L["Next"],
+                            date(dataFormat, nextTime),
+                            1, 1, 1, 1, 1, 1
+                        )
+                    end
+                end
+            elseif entity.type == 'custom' then
+                entity.func(tooltip)
+            end
+        end
+    end
+end
+
 function Core:Initialize()
+    LDB:NewDataObject("EventTimetable", {
+        type = "data source",
+        text = L["Event Timetable"],
+        OnTooltipShow = function(tooltip)
+            Core:OnEnter(tooltip)
+        end,
+    })
 end
