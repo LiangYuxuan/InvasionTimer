@@ -9,7 +9,7 @@ local GetAchievementCriteriaInfo = GetAchievementCriteriaInfo
 
 local WrapTextInColorCode = WrapTextInColorCode
 
-Core:RegisterEntity({
+Core:RegisterEntry({
     type = 'timeEvent',
     key = 'SL_Tormentor',
     title = L["Tormentor of Torghast"],

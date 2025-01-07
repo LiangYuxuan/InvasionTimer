@@ -2,7 +2,7 @@
 local IT, L = unpack((select(2, ...)))
 local Core = IT.Core
 
-Core:RegisterEntity({
+Core:RegisterEntry({
     type = 'timeEvent',
     key = 'DF_Feast',
     title = L["Community Feast"],

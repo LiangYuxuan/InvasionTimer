@@ -28,7 +28,7 @@ local mapAreaPoiIDs = {
     [895] = 5896, -- Tiragarde Sound
 }
 
-Core:RegisterEntity({
+Core:RegisterEntry({
     type = 'timeEvent',
     key = 'BfA_Assault',
     title = L["Faction Assault"],

@@ -33,7 +33,7 @@ IT:SetScript('OnEvent', function()
 
     if not InvasionTimerDB then
         ---@class InvasionTimerDBSettings
-        ---@field displayEntity table<string, boolean>
+        ---@field displayEntry table<string, boolean>
         ---@field use12HourClock boolean
         ---@field useDDMMFormat boolean
 
@@ -43,7 +43,7 @@ IT:SetScript('OnEvent', function()
         InvasionTimerDB = {
             dbVersion = 1,
             settings = {
-                displayEntity = {},
+                displayEntry = {},
                 use12HourClock = false,
                 useDDMMFormat = false,
             },
@@ -52,10 +52,10 @@ IT:SetScript('OnEvent', function()
 
     IT.db = InvasionTimerDB
 
-    local displayEntities = IT.Core:GetAllEntries()
-    for _, entity in ipairs(displayEntities) do
-        if IT.db.settings.displayEntity[entity.key] == nil then
-            IT.db.settings.displayEntity[entity.key] = true
+    local displayEntries = IT.Core:GetAllEntries()
+    for _, entry in ipairs(displayEntries) do
+        if IT.db.settings.displayEntry[entry.key] == nil then
+            IT.db.settings.displayEntry[entry.key] = true
         end
     end
 

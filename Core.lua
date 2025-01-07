@@ -30,7 +30,7 @@ end
 ---@field EU integer
 ---@field CN integer
 
----@class TimeEventEntity
+---@class TimeEventEntry
 ---@field type "timeEvent"
 ---@field key string
 ---@field title string
@@ -41,24 +41,24 @@ end
 ---@field getCurrentName nil | fun(): string
 ---@field getRotationName nil | fun(rotationID: integer): string
 
----@class CustomEntity
+---@class CustomEntry
 ---@field type "custom"
 ---@field key string
 ---@field title string
 ---@field func fun(tooltip: GameTooltip)
 
----@alias DisplayEntity TimeEventEntity | CustomEntity
+---@alias DisplayEntry TimeEventEntry | CustomEntry
 
----@type DisplayEntity[]
-local displayEntities = {}
+---@type DisplayEntry[]
+local displayEntries = {}
 
 ---@param futureLength number
----@param entity TimeEventEntity
-local function GetSequence(futureLength, entity)
-    local baseTime = entity.baseTime[region]
-    local interval = entity.interval
-    local duration = entity.duration
-    local rotation = entity.rotation
+---@param entry TimeEventEntry
+local function GetSequence(futureLength, entry)
+    local baseTime = entry.baseTime[region]
+    local interval = entry.interval
+    local duration = entry.duration
+    local rotation = entry.rotation
 
     local result = {}
 
@@ -91,13 +91,13 @@ local function GetSequence(futureLength, entity)
     return result
 end
 
----@param entity DisplayEntity
-function Core:RegisterEntity(entity)
-    tinsert(displayEntities, entity)
+---@param entry DisplayEntry
+function Core:RegisterEntry(entry)
+    tinsert(displayEntries, entry)
 end
 
 function Core:GetAllEntries()
-    return displayEntities
+    return displayEntries
 end
 
 function Core:GetDataFormat()
@@ -119,26 +119,26 @@ end
 function Core:OnEnter(tooltip)
     local dataFormat = self:GetDataFormat()
 
-    for _, entity in ipairs(displayEntities) do
-        if IT.db.settings.displayEntity[entity.key] then
-            tooltip:AddLine(entity.title)
+    for _, entry in ipairs(displayEntries) do
+        if IT.db.settings.displayEntry[entry.key] then
+            tooltip:AddLine(entry.title)
 
-            if entity.type == 'timeEvent' then
+            if entry.type == 'timeEvent' then
                 local sequenceLength = 3
-                local sequence = GetSequence(sequenceLength, entity)
+                local sequence = GetSequence(sequenceLength, entry)
                 if sequence[0] then
                     local secondsLeft, rotationID = unpack(sequence[0])
                     local minutesLeft = secondsLeft / 60
 
-                    if rotationID and entity.getRotationName then
-                        local rotationName = entity.getRotationName(rotationID)
+                    if rotationID and entry.getRotationName then
+                        local rotationName = entry.getRotationName(rotationID)
                         tooltip:AddDoubleLine(
                             L["Current"] .. ": " .. rotationName,
                             format("%dh %.2dm", minutesLeft / 60, minutesLeft % 60),
                             1, 1, 1, 0, 1, 0
                         )
-                    elseif entity.getCurrentName then
-                        local currentName = entity.getCurrentName()
+                    elseif entry.getCurrentName then
+                        local currentName = entry.getCurrentName()
                         tooltip:AddDoubleLine(
                             L["Current"] .. ": " .. currentName,
                             format("%dh %.2dm", minutesLeft / 60, minutesLeft % 60),
@@ -156,8 +156,8 @@ function Core:OnEnter(tooltip)
                 for i = 1, sequenceLength do
                     local nextTime, rotationID = unpack(sequence[i])
 
-                    if rotationID and entity.getRotationName then
-                        local rotationName = entity.getRotationName(rotationID)
+                    if rotationID and entry.getRotationName then
+                        local rotationName = entry.getRotationName(rotationID)
                         tooltip:AddDoubleLine(
                             L["Next"] .. ": " .. rotationName,
                             date(dataFormat, nextTime),
@@ -171,8 +171,8 @@ function Core:OnEnter(tooltip)
                         )
                     end
                 end
-            elseif entity.type == 'custom' then
-                entity.func(tooltip)
+            elseif entry.type == 'custom' then
+                entry.func(tooltip)
             end
         end
     end

@@ -29,7 +29,7 @@ local warfronts = {
 local faction = UnitFactionGroup('player')
 local oppositeFaction = faction == 'Alliance' and 'Horde' or 'Alliance'
 
-Core:RegisterEntity({
+Core:RegisterEntry({
     type = 'custom',
     key = 'BfA_Warfront',
     title = L["Warfront"],

@@ -24,7 +24,7 @@ local mapAreaPoiIDs = {
     [634] = 5178, -- Stormheim
 }
 
-Core:RegisterEntity({
+Core:RegisterEntry({
     type = 'timeEvent',
     key = 'LEG_Invasion',
     title = L["Legion Invasion"],
