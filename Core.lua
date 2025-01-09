@@ -38,7 +38,7 @@ end
 ---@field duration integer
 ---@field baseTime TimeEventBaseTime
 ---@field rotation integer[]?
----@field getCurrentName nil | fun(): string
+---@field getCurrentName nil | fun(): string[]
 ---@field getRotationName nil | fun(rotationID: integer): string
 
 ---@class CustomEntry
@@ -139,11 +139,15 @@ function Core:OnEnter(tooltip)
                         )
                     elseif entry.getCurrentName then
                         local currentName = entry.getCurrentName()
-                        tooltip:AddDoubleLine(
-                            L["Current"] .. ": " .. currentName,
-                            format("%dh %.2dm", minutesLeft / 60, minutesLeft % 60),
-                            1, 1, 1, 0, 1, 0
-                        )
+                        local dateText = format("%dh %.2dm", minutesLeft / 60, minutesLeft % 60)
+
+                        for _, name in ipairs(currentName) do
+                            tooltip:AddDoubleLine(
+                                L["Current"] .. ": " .. name,
+                                dateText,
+                                1, 1, 1, 0, 1, 0
+                            )
+                        end
                     else
                         tooltip:AddDoubleLine(
                             L["Current"],

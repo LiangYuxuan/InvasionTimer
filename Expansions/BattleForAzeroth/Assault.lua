@@ -41,6 +41,7 @@ Core:RegisterEntry({
     },
     rotation = {896, 862, 895, 863, 942, 864},
     getCurrentName = function()
+        ---@type string
         local uiMapName = UNKNOWN
 
         for _, uiMapID in ipairs(maps) do
@@ -52,7 +53,7 @@ Core:RegisterEntry({
             end
         end
 
-        return uiMapName
+        return { uiMapName }
     end,
     getRotationName = function(rotationID)
         return C_Map_GetMapInfo(rotationID).name

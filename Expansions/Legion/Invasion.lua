@@ -36,6 +36,7 @@ Core:RegisterEntry({
         CN = 1546844400, -- 2019-01-07 15:00 UTC+8
     },
     getCurrentName = function()
+        ---@type string
         local uiMapName = UNKNOWN
 
         for _, uiMapID in ipairs(maps) do
@@ -47,6 +48,6 @@ Core:RegisterEntry({
             end
         end
 
-        return uiMapName
+        return { uiMapName }
     end,
 })
