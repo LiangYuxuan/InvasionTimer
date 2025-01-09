@@ -22,9 +22,17 @@ function Config:Initialize()
     local useDDMMFormat = Settings_RegisterAddOnSetting(category, 'InvasionTimer_useDDMMFormat', 'useDDMMFormat', IT.db.settings, 'boolean', L["Use DD/MM format"], false)
     Settings_CreateCheckbox(category, useDDMMFormat)
 
-    local displayCategory = Settings_RegisterVerticalLayoutSubcategory(category, L["Display"])
+    local currentExpansion = -1
+    local displayCategory, displayLayout = Settings_RegisterVerticalLayoutSubcategory(category, L["Display"])
     local displayEntries = IT.Core:GetAllEntries()
     for _, entry in ipairs(displayEntries) do
+        if currentExpansion ~= entry.expansion then
+            local initializer = Settings.CreateElementInitializer('SettingsListSectionHeaderTemplate', {name = _G['EXPANSION_NAME' .. entry.expansion]})
+            displayLayout:AddInitializer(initializer)
+
+            currentExpansion = entry.expansion
+        end
+
         local settingKey = entry.expansion .. '_' .. entry.key
         local setting = Settings_RegisterAddOnSetting(displayCategory, 'InvasionTimer_' .. settingKey, settingKey, IT.db.settings.displayEntry, 'boolean', entry.title, true)
         Settings_CreateCheckbox(displayCategory, setting)
