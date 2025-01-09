@@ -5,10 +5,12 @@ local Config = {}
 IT.Config = Config
 
 -- Lua functions
+local _G = _G
 local ipairs = ipairs
 
 -- WoW API / Variables
 local Settings_CreateCheckbox = Settings.CreateCheckbox
+local Settings_CreateElementInitializer = Settings.CreateElementInitializer
 local Settings_RegisterAddOnCategory = Settings.RegisterAddOnCategory
 local Settings_RegisterAddOnSetting = Settings.RegisterAddOnSetting
 local Settings_RegisterVerticalLayoutCategory = Settings.RegisterVerticalLayoutCategory
@@ -27,7 +29,7 @@ function Config:Initialize()
     local displayEntries = IT.Core:GetAllEntries()
     for _, entry in ipairs(displayEntries) do
         if currentExpansion ~= entry.expansion then
-            local initializer = Settings.CreateElementInitializer('SettingsListSectionHeaderTemplate', {name = _G['EXPANSION_NAME' .. entry.expansion]})
+            local initializer = Settings_CreateElementInitializer('SettingsListSectionHeaderTemplate', {name = _G['EXPANSION_NAME' .. entry.expansion]})
             displayLayout:AddInitializer(initializer)
 
             currentExpansion = entry.expansion
