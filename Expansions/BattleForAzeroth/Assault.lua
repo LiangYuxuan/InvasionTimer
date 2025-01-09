@@ -40,7 +40,7 @@ Core:RegisterEntry({
         CN = 1546743600, -- 2019-01-06 11:00 UTC+8
     },
     rotation = {896, 862, 895, 863, 942, 864},
-    getCurrentName = function()
+    getCurrentNames = function()
         ---@type string
         local uiMapName = UNKNOWN
 

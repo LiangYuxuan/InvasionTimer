@@ -35,7 +35,7 @@ Core:RegisterEntry({
         EU = 1547586000, -- 2019-01-15 21:00 UTC+0
         CN = 1546844400, -- 2019-01-07 15:00 UTC+8
     },
-    getCurrentName = function()
+    getCurrentNames = function()
         ---@type string
         local uiMapName = UNKNOWN
 
