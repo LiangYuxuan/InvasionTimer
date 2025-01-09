@@ -4,7 +4,8 @@ local Core = IT.Core
 
 Core:RegisterEntry({
     type = 'timeEvent',
-    key = 'DF_Siege',
+    expansion = 9,
+    key = 'Siege',
     title = L["Siege on Dragonbane Keep"],
     interval = 7200,
     duration = 3600,

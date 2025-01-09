@@ -30,7 +30,8 @@ local mapAreaPoiIDs = {
 
 Core:RegisterEntry({
     type = 'timeEvent',
-    key = 'BfA_Assault',
+    expansion = 7,
+    key = 'Assault',
     title = L["Faction Assault"],
     interval = 68400,
     duration = 25200,

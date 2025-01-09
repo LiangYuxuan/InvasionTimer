@@ -32,6 +32,7 @@ end
 
 ---@class TimeEventEntry
 ---@field type "timeEvent"
+---@field expansion number
 ---@field key string
 ---@field title string
 ---@field interval integer
@@ -43,6 +44,7 @@ end
 
 ---@class CustomEntry
 ---@field type "custom"
+---@field expansion number
 ---@field key string
 ---@field title string
 ---@field func fun(tooltip: GameTooltip)
@@ -120,7 +122,9 @@ function Core:OnEnter(tooltip)
     local dataFormat = self:GetDataFormat()
 
     for _, entry in ipairs(displayEntries) do
-        if IT.db.settings.displayEntry[entry.key] then
+        local settingKey = entry.expansion .. '_' .. entry.key
+
+        if IT.db.settings.displayEntry[settingKey] then
             tooltip:AddLine(entry.title)
 
             if entry.type == 'timeEvent' then

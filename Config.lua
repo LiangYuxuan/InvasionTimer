@@ -25,7 +25,8 @@ function Config:Initialize()
     local displayCategory = Settings_RegisterVerticalLayoutSubcategory(category, L["Display"])
     local displayEntries = IT.Core:GetAllEntries()
     for _, entry in ipairs(displayEntries) do
-        local setting = Settings_RegisterAddOnSetting(displayCategory, 'InvasionTimer_' .. entry.key, entry.key, IT.db.settings.displayEntry, 'boolean', entry.title, true)
+        local settingKey = entry.expansion .. '_' .. entry.key
+        local setting = Settings_RegisterAddOnSetting(displayCategory, 'InvasionTimer_' .. settingKey, settingKey, IT.db.settings.displayEntry, 'boolean', entry.title, true)
         Settings_CreateCheckbox(displayCategory, setting)
     end
 

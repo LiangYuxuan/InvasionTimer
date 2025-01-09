@@ -8,11 +8,20 @@ local IT = CreateFrame('Frame')
 
 -- Lua functions
 local _G = _G
-local format, ipairs, rawget = format, ipairs, rawget
+local format, rawget = format, rawget
 
 -- WoW API / Variables
 
 -- GLOBALS: InvasionTimerDB
+
+---@class InvasionTimerDBSettings
+---@field displayEntry table<string, boolean>
+---@field use12HourClock boolean
+---@field useDDMMFormat boolean
+
+---@class InvasionTimerDB
+---@field dbVersion number
+---@field settings InvasionTimerDBSettings
 
 local L = {}
 setmetatable(L, {
@@ -32,32 +41,15 @@ IT:SetScript('OnEvent', function()
     IT:UnregisterEvent('PLAYER_LOGIN')
 
     if not InvasionTimerDB then
-        ---@class InvasionTimerDBSettings
-        ---@field displayEntry table<string, boolean>
-        ---@field use12HourClock boolean
-        ---@field useDDMMFormat boolean
-
-        ---@class InvasionTimerDB
-        ---@field dbVersion number
-        ---@field settings InvasionTimerDBSettings
         InvasionTimerDB = {
             dbVersion = 1,
             settings = {
                 displayEntry = {},
-                use12HourClock = false,
-                useDDMMFormat = false,
             },
         }
     end
 
     IT.db = InvasionTimerDB
-
-    local displayEntries = IT.Core:GetAllEntries()
-    for _, entry in ipairs(displayEntries) do
-        if IT.db.settings.displayEntry[entry.key] == nil then
-            IT.db.settings.displayEntry[entry.key] = true
-        end
-    end
 
     IT.Core:Initialize()
     IT.Config:Initialize()

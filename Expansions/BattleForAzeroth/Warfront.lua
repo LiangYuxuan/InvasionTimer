@@ -31,7 +31,8 @@ local oppositeFaction = faction == 'Alliance' and 'Horde' or 'Alliance'
 
 Core:RegisterEntry({
     type = 'custom',
-    key = 'BfA_Warfront',
+    expansion = 7,
+    key = 'Warfront',
     title = L["Warfront"],
     func = function(tooltip)
         for _, warfront in ipairs(warfronts) do

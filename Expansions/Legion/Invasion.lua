@@ -26,7 +26,8 @@ local mapAreaPoiIDs = {
 
 Core:RegisterEntry({
     type = 'timeEvent',
-    key = 'LEG_Invasion',
+    expansion = 6,
+    key = 'Invasion',
     title = L["Legion Invasion"],
     interval = 66600,
     duration = 21600,

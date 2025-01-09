@@ -69,7 +69,8 @@ local achievementIDs = {
 
 Core:RegisterEntry({
     type = 'timeEvent',
-    key = 'DF_Storm',
+    expansion = 9,
+    key = 'Storm',
     title = L["Elemental Storm"],
     interval = 10800,
     duration = 7200,

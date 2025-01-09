@@ -4,7 +4,8 @@ local Core = IT.Core
 
 Core:RegisterEntry({
     type = 'timeEvent',
-    key = 'DF_Feast',
+    expansion = 9,
+    key = 'Feast',
     title = L["Community Feast"],
     interval = 5400,
     duration = 900,

@@ -11,7 +11,8 @@ local WrapTextInColorCode = WrapTextInColorCode
 
 Core:RegisterEntry({
     type = 'timeEvent',
-    key = 'SL_Tormentor',
+    expansion = 8,
+    key = 'Tormentor',
     title = L["Tormentor of Torghast"],
     interval = 7200,
     duration = 7200,
