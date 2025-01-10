@@ -145,12 +145,20 @@ function Core:OnEnter(tooltip)
                         local currentName = entry.getCurrentNames()
                         local dateText = format("%dh %.2dm", minutesLeft / 60, minutesLeft % 60)
 
-                        for _, name in ipairs(currentName) do
+                        if #currentName == 0 then
                             tooltip:AddDoubleLine(
-                                L["Current"] .. ": " .. name,
+                                L["Current"] .. ": " .. UNKNOWN,
                                 dateText,
                                 1, 1, 1, 0, 1, 0
                             )
+                        else
+                            for _, name in ipairs(currentName) do
+                                tooltip:AddDoubleLine(
+                                    L["Current"] .. ": " .. name,
+                                    dateText,
+                                    1, 1, 1, 0, 1, 0
+                                )
+                            end
                         end
                     else
                         tooltip:AddDoubleLine(
