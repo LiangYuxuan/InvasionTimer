@@ -20,5 +20,6 @@ Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
 Init.lua
 Locales.lua
 Core.lua
+WorldQuest.lua
 Expansions\Load.xml
 Config.lua

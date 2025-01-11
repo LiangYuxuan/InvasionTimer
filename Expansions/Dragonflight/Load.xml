@@ -2,4 +2,6 @@
 	<Script file='Storm.lua'/>
 	<Script file='Feast.lua'/>
 	<Script file='Siege.lua'/>
+
+	<Script file='WorldQuest.lua'/>
 </Ui>

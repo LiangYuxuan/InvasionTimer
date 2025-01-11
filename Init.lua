@@ -3,6 +3,7 @@ local addon, Engine = ...
 ---@class InvasionTimer: Frame
 ---@field db InvasionTimerDB
 ---@field Core InvasionTimerCore
+---@field WorldQuest InvasionTimerWorldQuest
 ---@field Config InvasionTimerConfig
 local IT = CreateFrame('Frame')
 

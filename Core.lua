@@ -12,6 +12,8 @@ local date, floor, format, ipairs, tinsert, unpack = date, floor, format, ipairs
 -- WoW API / Variables
 local GetServerTime = GetServerTime
 
+local UNKNOWN = UNKNOWN
+
 local region = GetCVar('portal')
 if not region or #region ~= 2 then
     local regionID = GetCurrentRegion()
@@ -120,6 +122,8 @@ end
 
 function Core:OnEnter(tooltip)
     local dataFormat = self:GetDataFormat()
+
+    IT.WorldQuest:OnEnter(tooltip)
 
     for _, entry in ipairs(displayEntries) do
         local settingKey = entry.expansion .. '_' .. entry.key
