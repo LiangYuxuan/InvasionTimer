@@ -49,6 +49,8 @@ function WQ:RegisterEntry(entry)
 end
 
 function WQ:OnEnter(tooltip)
+    local hasEntry = false
+
     tooltip:AddLine(L["World Quests"])
 
     for _, entry in ipairs(worldQuestEntries) do
@@ -72,7 +74,7 @@ function WQ:OnEnter(tooltip)
         elseif entry.type == 'criteria' then
             local _, name, _, completed, _, _, _, _, _, iconID = GetAchievementInfo(entry.achievementID)
             if not completed then
-                local titleReady = false
+                local hasEntryTitle = false
                 local numCriteria = GetAchievementNumCriteria(entry.achievementID)
                 for i = 1, numCriteria do
                     local questIDs = entry.questIDs[i]
@@ -84,9 +86,9 @@ function WQ:OnEnter(tooltip)
                                     local questTitle = C_TaskQuest_GetQuestInfoByQuestID(questID)
                                     local minutesLeft = C_TaskQuest_GetQuestTimeLeftMinutes(questID)
 
-                                    if not titleReady then
+                                    if not hasEntryTitle then
                                         tooltip:AddLine('|T' .. iconID .. ':0|t' .. name)
-                                        titleReady = true
+                                        hasEntryTitle = true
                                     end
 
                                     tooltip:AddDoubleLine(
@@ -113,13 +115,13 @@ function WQ:OnEnter(tooltip)
             end
 
             if not isAllCompleted then
-                local titleReady = false
+                local hasEntryTitle = false
                 for _, questID in ipairs(entry.questIDs) do
                     if C_TaskQuest_IsActive(questID) then
                         local questTitle = C_TaskQuest_GetQuestInfoByQuestID(questID)
                         local minutesLeft = C_TaskQuest_GetQuestTimeLeftMinutes(questID)
 
-                        if not titleReady then
+                        if not hasEntryTitle then
                             for _, achievementID in ipairs(achievementIDs) do
                                 local _, name, _, completed, _, _, _, _, _, iconID = GetAchievementInfo(achievementID)
                                 if not completed then
@@ -127,7 +129,7 @@ function WQ:OnEnter(tooltip)
                                 end
                             end
 
-                            titleReady = true
+                            hasEntryTitle = true
                         end
 
                         tooltip:AddDoubleLine(
@@ -139,5 +141,9 @@ function WQ:OnEnter(tooltip)
                 end
             end
         end
+    end
+
+    if not hasEntry then
+        tooltip:AddLine(L["No Notable World Quests"])
     end
 end
