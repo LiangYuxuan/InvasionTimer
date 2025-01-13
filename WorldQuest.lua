@@ -53,14 +53,14 @@ function WQ:OnEnter(tooltip)
 
     for _, entry in ipairs(worldQuestEntries) do
         if entry.type == 'single' then
-            local _, name, _, completed = GetAchievementInfo(entry.achievementID)
+            local _, name, _, completed, _, _, _, _, _, iconID = GetAchievementInfo(entry.achievementID)
             if not completed then
                 if C_TaskQuest_IsActive(entry.questID) then
                     local questID = entry.questID
                     local questTitle = C_TaskQuest_GetQuestInfoByQuestID(questID)
                     local minutesLeft = C_TaskQuest_GetQuestTimeLeftMinutes(questID)
 
-                    tooltip:AddLine(name)
+                    tooltip:AddLine('|T' .. iconID .. ':0|t' .. name)
 
                     tooltip:AddDoubleLine(
                         questTitle,
@@ -70,7 +70,7 @@ function WQ:OnEnter(tooltip)
                 end
             end
         elseif entry.type == 'criteria' then
-            local _, name, _, completed = GetAchievementInfo(entry.achievementID)
+            local _, name, _, completed, _, _, _, _, _, iconID = GetAchievementInfo(entry.achievementID)
             if not completed then
                 local titleReady = false
                 local numCriteria = GetAchievementNumCriteria(entry.achievementID)
@@ -85,7 +85,7 @@ function WQ:OnEnter(tooltip)
                                     local minutesLeft = C_TaskQuest_GetQuestTimeLeftMinutes(questID)
 
                                     if not titleReady then
-                                        tooltip:AddLine(name)
+                                        tooltip:AddLine('|T' .. iconID .. ':0|t' .. name)
                                         titleReady = true
                                     end
 
@@ -121,9 +121,9 @@ function WQ:OnEnter(tooltip)
 
                         if not titleReady then
                             for _, achievementID in ipairs(achievementIDs) do
-                                local _, name, _, completed = GetAchievementInfo(achievementID)
+                                local _, name, _, completed, _, _, _, _, _, iconID = GetAchievementInfo(achievementID)
                                 if not completed then
-                                    tooltip:AddLine(name)
+                                    tooltip:AddLine('|T' .. iconID .. ':0|t' .. name)
                                 end
                             end
 
