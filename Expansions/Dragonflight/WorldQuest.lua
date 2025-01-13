@@ -19,11 +19,8 @@ WQ:RegisterEntry({
     },
     questIDs = {
         78645, -- Excavation: Buried in the Riverbed
-        78649, -- Excavation: Something Big Beneath the Riverbed
         78661, -- Excavation: Treasures in the Cliffside
-        78662, -- Excavation: A Cliffside Full of Caches
         78663, -- Excavation: Scattered Around the Tower
-        78739, -- Excavation: The Trove in the Tower
     },
 })
 
