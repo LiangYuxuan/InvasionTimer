@@ -13,10 +13,10 @@ local GetAchievementInfo = GetAchievementInfo
 local WrapTextInColorCode = WrapTextInColorCode
 
 local atlas = {
-    '|A:elementalstorm-lesser-air:16:16|a',
-    '|A:elementalstorm-lesser-earth:16:16|a',
-    '|A:elementalstorm-lesser-fire:16:16|a',
-    '|A:elementalstorm-lesser-water:16:16|a',
+    '|A:elementalstorm-lesser-air:0:0|a',
+    '|A:elementalstorm-lesser-earth:0:0|a',
+    '|A:elementalstorm-lesser-fire:0:0|a',
+    '|A:elementalstorm-lesser-water:0:0|a',
 }
 
 -- { air, earth, fire, water }
