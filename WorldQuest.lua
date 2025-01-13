@@ -124,7 +124,6 @@ function WQ:OnEnter(tooltip)
                                 local _, name, _, completed = GetAchievementInfo(achievementID)
                                 if not completed then
                                     tooltip:AddLine(name)
-                                    break
                                 end
                             end
 
