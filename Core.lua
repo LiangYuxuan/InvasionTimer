@@ -120,6 +120,7 @@ function Core:GetDataFormat()
     end
 end
 
+---@param tooltip GameTooltip
 function Core:OnEnter(tooltip)
     local dataFormat = self:GetDataFormat()
 

@@ -50,6 +50,7 @@ function WQ:RegisterEntry(entry)
     tinsert(worldQuestEntries, entry)
 end
 
+---@param tooltip GameTooltip
 function WQ:OnEnter(tooltip)
     local hasEntry = false
 
@@ -71,6 +72,8 @@ function WQ:OnEnter(tooltip)
                         minutesLeft and format("%dh %.2dm", minutesLeft / 60, minutesLeft % 60) or UNKNOWN,
                         1, 1, 1, 0, 1, 0
                     )
+
+                    hasEntry = true
                 end
             end
         elseif entry.type == 'criteria' then
@@ -98,6 +101,8 @@ function WQ:OnEnter(tooltip)
                                         minutesLeft and format("%dh %.2dm", minutesLeft / 60, minutesLeft % 60) or UNKNOWN,
                                         1, 1, 1, 0, 1, 0
                                     )
+
+                                    hasEntry = true
                                 end
                             end
                         end
@@ -139,6 +144,8 @@ function WQ:OnEnter(tooltip)
                             minutesLeft and format("%dh %.2dm", minutesLeft / 60, minutesLeft % 60) or UNKNOWN,
                             1, 1, 1, 0, 1, 0
                         )
+
+                        hasEntry = true
                     end
                 end
             end
@@ -146,6 +153,6 @@ function WQ:OnEnter(tooltip)
     end
 
     if not hasEntry then
-        tooltip:AddLine(L["No Notable World Quests"])
+        tooltip:AddLine(L["No Notable World Quests"], 1, 1, 1)
     end
 end
