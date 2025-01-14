@@ -15,6 +15,8 @@ local GetAchievementCriteriaInfo = GetAchievementCriteriaInfo
 local GetAchievementInfo = GetAchievementInfo
 local GetAchievementNumCriteria = GetAchievementNumCriteria
 
+local UNKNOWN = UNKNOWN
+
 ---@alias AchievementCategory 'quest' | 'exploration' | 'reputation'
 
 ---@class SingleQuestAchievementEntry
@@ -66,7 +68,7 @@ function WQ:OnEnter(tooltip)
 
                     tooltip:AddDoubleLine(
                         questTitle,
-                        format("%dh %.2dm", minutesLeft / 60, minutesLeft % 60),
+                        minutesLeft and format("%dh %.2dm", minutesLeft / 60, minutesLeft % 60) or UNKNOWN,
                         1, 1, 1, 0, 1, 0
                     )
                 end
@@ -93,7 +95,7 @@ function WQ:OnEnter(tooltip)
 
                                     tooltip:AddDoubleLine(
                                         questTitle,
-                                        format("%dh %.2dm", minutesLeft / 60, minutesLeft % 60),
+                                        minutesLeft and format("%dh %.2dm", minutesLeft / 60, minutesLeft % 60) or UNKNOWN,
                                         1, 1, 1, 0, 1, 0
                                     )
                                 end
@@ -134,7 +136,7 @@ function WQ:OnEnter(tooltip)
 
                         tooltip:AddDoubleLine(
                             questTitle,
-                            format("%dh %.2dm", minutesLeft / 60, minutesLeft % 60),
+                            minutesLeft and format("%dh %.2dm", minutesLeft / 60, minutesLeft % 60) or UNKNOWN,
                             1, 1, 1, 0, 1, 0
                         )
                     end
