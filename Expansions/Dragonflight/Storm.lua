@@ -6,7 +6,7 @@ local Core = IT.Core
 local ipairs, pairs, tinsert = ipairs, pairs, tinsert
 
 -- WoW API / Variables
-local C_AreaPoiInfo_GetAreaPOISecondsLeft = C_AreaPoiInfo.GetAreaPOISecondsLeft
+local C_AreaPoiInfo_GetAreaPOIInfo = C_AreaPoiInfo.GetAreaPOIInfo
 local C_Map_GetMapInfo = C_Map.GetMapInfo
 local GetAchievementInfo = GetAchievementInfo
 
@@ -86,8 +86,8 @@ Core:RegisterEntry({
         for uiMapID, mapStormGroups in pairs(stormPoiIDs) do
             for _, stormGroup in ipairs(mapStormGroups) do
                 for index, areaPoiID in ipairs(stormGroup) do
-                    local seconds = C_AreaPoiInfo_GetAreaPOISecondsLeft(areaPoiID)
-                    if seconds and seconds > 0 then
+                    local data = C_AreaPoiInfo_GetAreaPOIInfo(uiMapID, areaPoiID)
+                    if data then
                         local mapInfo = C_Map_GetMapInfo(uiMapID)
                         local _, _, _, completed = GetAchievementInfo(achievementIDs[uiMapID][index])
                         tinsert(currentNames, atlas[index] .. WrapTextInColorCode(mapInfo.name, completed and 'ffffffff' or 'ffff2020'))
