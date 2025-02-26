@@ -17,7 +17,7 @@ local GetAchievementNumCriteria = GetAchievementNumCriteria
 
 local UNKNOWN = UNKNOWN
 
----@alias AchievementCategory 'quest' | 'exploration' | 'reputation'
+---@alias AchievementCategory 'quest' | 'exploration' | 'reputation' | 'pvp' | 'profession' | 'pet'
 
 ---@class SingleQuestAchievementEntry
 ---@field type "single"
