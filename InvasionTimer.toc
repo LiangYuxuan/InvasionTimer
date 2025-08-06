@@ -1,4 +1,4 @@
-## Interface: 110100
+## Interface: 110200
 ## Title: Invasion Timer
 ## Notes: Data broker that provides timetable of time events (including invasions).
 ## Author: @project-author@
