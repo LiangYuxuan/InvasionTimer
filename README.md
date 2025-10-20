@@ -1,6 +1,6 @@
 # InvasionTimer
 
-[![Build Status](https://github.com/LiangYuxuan/InvasionTimer/workflows/Build/badge.svg)](https://github.com/LiangYuxuan/InvasionTimer/actions?workflow=Build)
+[![Build Status](https://github.com/LiangYuxuan/InvasionTimer/workflows/build/badge.svg)](https://github.com/LiangYuxuan/InvasionTimer/actions?workflow=build)
 
 World of Warcraft addon that provides a datatext showing current and following invasions.
 
