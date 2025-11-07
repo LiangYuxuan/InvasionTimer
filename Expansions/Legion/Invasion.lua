@@ -29,12 +29,17 @@ Core:RegisterEntry({
     expansion = 6,
     key = 'Invasion',
     title = L["Legion Invasion"],
-    interval = 66600,
+    -- interval = 66600,
+    interval = 52200, -- Remix
     duration = 21600,
     baseTime = {
-        US = 1547614800, -- 2019-01-15 21:00 UTC-8
-        EU = 1547586000, -- 2019-01-15 21:00 UTC+0
-        CN = 1546844400, -- 2019-01-07 15:00 UTC+8
+        -- US = 1547614800, -- 2019-01-15 21:00 UTC-8
+        -- EU = 1547586000, -- 2019-01-15 21:00 UTC+0
+        -- CN = 1546844400, -- 2019-01-07 15:00 UTC+8
+        -- Remix
+        US = 1762421400, -- 2025-11-06 01:30 UTC-8
+        EU = 1762434000, -- 2025-11-06 13:00 UTC+0
+        CN = 1762450200, -- 2025-11-07 01:30 UTC+8
     },
     getCurrentNames = function()
         ---@type string
