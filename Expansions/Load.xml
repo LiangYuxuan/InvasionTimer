@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Include file="Midnight\Load.xml"/>
 	<Include file="TheWarWithin\Load.xml"/>
 	<Include file="Dragonflight\Load.xml"/>
 	<Include file="Shadowlands\Load.xml"/>
