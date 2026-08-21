@@ -57533,6 +57533,7 @@ read_globals = {
 	"OverrideActionBarButtonMixin",
 	"OverrideActionBarMixin",
 	"OverrideActionBar_StatusBars_ShowTooltip",
+	"OverrideLFGSetRoleRestriction",
 	"OverrideLayoutFrameOnUpdateMixin",
 	"PACKAGEITEMS_TO_DISPLAY",
 	"PAID_CHARACTER_CUSTOMIZATION",
